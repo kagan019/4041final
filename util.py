@@ -18,8 +18,8 @@ nctr = 0
 def randreset():
     global rctr,nctr,normpool,randpool
     np.random.seed(SEED)
-    randpool = np.random.uniform(size=99999999)
-    normpool = np.random.normal(scale=2, size=99999999)
+    randpool = np.random.uniform(size=99999)
+    normpool = np.random.normal(scale=2, size=99999)
     rctr = 0
     nctr = 0
 
@@ -27,7 +27,8 @@ def unif():
     global rctr
     rctr += 1
     if rctr > len(randpool):
-        exit("pool size too small")
+        randreset()
+        rctr += 1
     return randpool[rctr-1]
 
 
@@ -35,7 +36,8 @@ def rnorm():
     global nctr
     nctr += 1
     if nctr > len(normpool):
-        exit("pool size too small")
+        randreset()
+        nctr += 1
     return normpool[nctr-1]
     
 
