@@ -82,7 +82,7 @@ def line(sx,sy,ex,ey):
         if deltay == 0:
             return [(sx,sy)]
         for y in fromto(sy,ey):
-            ret += [(sx,sy+y)]
+            ret += [(sx,y)]
         return ret
     if (abs(deltax) >= abs(deltay)):
         deltaerr = abs(deltay / deltax)
