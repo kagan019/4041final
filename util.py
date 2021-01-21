@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 
 SEED= 342384
 #center of coordinate lattice is (0,0)
-radius_spawn_ring = 50#500
-desired_ptcls = 1000#100000
+radius_spawn_ring = 500
+desired_ptcls = 100000
 sticking_prb = 0.7
 lattice_sidel = 2*radius_spawn_ring+1
 

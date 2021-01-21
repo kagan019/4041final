@@ -1,6 +1,9 @@
 from util import *
 
 def diffusion_collapse2():
+    #notes on notation
+    #([], [], []) is a column vector of rows 
+    # an embeded row [0 0 [0 0] 0 0 ] = a row [0 0 0 0 0 0]
     print("diffusion_collapse")
     N=int(radius_spawn_ring*np.pi) #num ptcls to simulate at a time
     diffusion_matrix = np.zeros((lattice_sidel,lattice_sidel))
