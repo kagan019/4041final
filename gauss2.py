@@ -15,17 +15,17 @@ def gaussian_rdm_walk2():
 
     directions = [(0,1),(0,-1),(1,0),(-1,0)]
     ptcl = None
-    num_ptcls = 0
-    lpc = num_ptcls
+    lpc = len(aggregate)
     while len(aggregate) < desired_ptcls:
-        if num_ptcls >= 10+lpc:
-            print(num_ptcls)
-            lpc = num_ptcls
+        if len(aggregate) >= 10+lpc:
+            print(len(aggregate))
+            lpc = len(aggregate)
         
         if ptcl is None:
             ptcl = spawn()
         dx,dy = gauss2()
-        dx,dy = int(round(dx)),int(round(dy))
+        #(new in version 2)
+        dx,dy = int(np.sign(round(dx))),int(np.sign(round(dy)))
 
         x,y = ptcl
         #optimization: the particle moves in larger steps further away
@@ -37,12 +37,9 @@ def gaussian_rdm_walk2():
         #boundary conditions
         if tryx**2+tryy**2 > radius_spawn_ring**2: 
             continue
-        #movement (new in version 2) 
-        for interp in line(x,y,tryx,tryy):  
-            if interp not in aggregate:          
-                ptcl = interp
-            else:
-                break
+        #movement
+        if (tryx,tryy) not in aggregate:          
+            ptcl = (tryx,tryy)  
 
         #collision
         for (ax,ay) in directions:

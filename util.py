@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 SEED= 342384
 #center of coordinate lattice is (0,0)
 radius_spawn_ring = 500
-desired_ptcls = 100000
+desired_ptcls = 50000
 sticking_prb = 0.7
 lattice_sidel = 2*radius_spawn_ring+1
 
@@ -27,8 +27,7 @@ def unif():
     global rctr
     rctr += 1
     if rctr > len(randpool):
-        randreset()
-        rctr += 1
+        rctr = 1
     return randpool[rctr-1]
 
 
@@ -36,8 +35,7 @@ def rnorm():
     global nctr
     nctr += 1
     if nctr > len(normpool):
-        randreset()
-        nctr += 1
+        nctr = 1
     return normpool[nctr-1]
     
 

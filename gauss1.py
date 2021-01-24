@@ -15,12 +15,11 @@ def gaussian_rdm_walk():
 
     directions = [(0,1),(0,-1),(1,0),(-1,0)]
     ptcl = None
-    num_ptcls = 0
-    lpc = num_ptcls
+    lpc = len(aggregate)
     while len(aggregate) < desired_ptcls:
-        if num_ptcls >= 10+lpc:
-            print(num_ptcls)
-            lpc = num_ptcls
+        if len(aggregate) >= 10+lpc:
+            print(len(aggregate))
+            lpc = len(aggregate)
         
         if ptcl is None:
             ptcl = spawn()

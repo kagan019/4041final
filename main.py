@@ -5,6 +5,5 @@ from collapse1 import *
 from collapse2 import *
 
 
-gaussian_rdm_walk()
 gaussian_rdm_walk2()
 

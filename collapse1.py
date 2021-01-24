@@ -57,7 +57,7 @@ def diffusion_collapse():
         # and 'col-wrapped'
         # colT[n] = (T[0][0],T[1][0],T[2][0],...,T[0][1],...,T[M-1][N-1]) at timestep n (m=i*M+j)
         # the row-wrapped form is a long vector taken from placing the rows of T side-by-side.
-        # the col-wrapped form is analogous.
+        # the col-wrapped form is analogous. 
         
         # Next, we define the LxL diagonal matrices,
         # P(Z) = [Z[1] Z[2] 0 0 0...]
@@ -72,13 +72,16 @@ def diffusion_collapse():
         #           ..., 
         #        [0 0 0   ...      Z],
         #        [0 0 0 ... Z[0] Z[1]])
-        # the differences are:
+        # the differences between them are:
         # every P[j*N][j*N-1] = 0 or dne and every P[j*N-1][j*N+1] = 0 or dne
         # every Q[i*M][i*M-1] = 0 or dne and every Q[i*M-1][i*M+1] = 0 or dne
         # from the boundary conditions.
 
         # first half step: (P(A1))rowT[n+1/2] = (Q(A2))colT[n]
         # second half step: (Q(A1))colT[n+1] = (P(A2))rowT[n+1/2]
+        # Here we will start with the column form, solve for the row
+        # form, then use it to solve for the next column form, ultimately
+        # advancing one time step
 
         k = 20
         M = lattice_sidel
@@ -93,19 +96,17 @@ def diffusion_collapse():
             Pdiags = diags(Z)
             for j in range(M):
                 if j > 0:
-                                # -1 adjusted diagonal
-                    Pdiags[0][j*N -1] = 0.
+                    Pdiags[0][j*N-1] = 0.
                 if j < M-1:
-                    Pdiags[2][j*N-1] = 0.
+                    Pdiags[2][(j+1)*N-1] = 0.
             return Pdiags
         def Qdiags(Z):
             Qdiags = diags(Z)
             for i in range(N):
                 if i > 0:
-                                # -1 adjusted diagonal
                     Qdiags[0][i*M -1] = 0.
                 if i < N-1:
-                    Qdiags[2][i*M-1] = 0.
+                    Qdiags[2][(i+1)*M-1] = 0.
             return Qdiags
         PA1tridiag = sp.diags(Pdiags(A1),(-1,0,1),format="csr")
         PA2tridiag = sp.diags(Pdiags(A2),(-1,0,1),format="csr")
